@@ -1,20 +1,33 @@
-
-// React jsx
-const desc = 'I just learned how to create a React Node and render it!';
-const myTitleId = 'main-title';
-const name = 'Eddy';
-
-const header = (
+const Header = () => {
+    return (
 <header>
-<h1 id={myTitleId}>{name}'s First React Element!</h1>
-<p>{desc}</p>
+    <h1>Scoreboard</h1>
+    <span className="stats">Players: 1</span>
 </header>
+    );
+}
 
-)
+const Player = () => {
+    return (
+        <div className="player">
+            <span className="player-name">
+                Eddy
+            </span>
+        </div>
+    )
+}
 
-//Renders the prop within the div tag we set for it.
+const Counter = () => {
+    return (
+        <div className="counter">
+        <button className="counter-action decrement"> - </button>
+        <span className="counter-score">35</span>
+        <button className="counter-action increment"> + </button>
+    </div>
+    )
+}
+
 ReactDOM.render(
-    header, document.getElementById('root')
+    <Player /> ,document.getElementById('root')
 );
 
-// console.log(title);
