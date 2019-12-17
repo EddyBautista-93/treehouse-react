@@ -1,33 +1,71 @@
-const Header = () => {
+const players = [
+    {
+        name: "Eddy",
+        score: 50
+      },
+      {
+        name: "Bev",
+        score: 85
+      },
+      {
+        name: "Dani",
+        score: 95
+      },
+      {
+        name: "Alex",
+        score: 80
+      }
+
+];
+
+
+const Header = (props) => {
     return (
 <header>
-    <h1>Scoreboard</h1>
-    <span className="stats">Players: 1</span>
+    <h1>{ props.title }</h1>
+    <span className="stats">Players: { props.totalPlayers }</span>
 </header>
     );
 }
 
-const Player = () => {
+const Player = (props) => {
     return (
         <div className="player">
             <span className="player-name">
-                Eddy
+                {props.name}
             </span>
+            <Counter score={props.score} />
+        </div>
+    );
+}
+
+const Counter = (props) => {
+    return (
+        <div className="counter">
+            <button className="counter-action decrement"> - </button>
+            <span className="counter-score">{ props.score }</span>
+            <button className="counter-action increment"> + </button>
+    </div>
+    );
+}
+
+const App = (props) => {
+    return (
+        <div className="scoreboard">
+            <Header title="Scoreboard" totalPlayers={props.initialPlayers.length}/>
+
+            {/* Players List */}
+            {props.initialPlayers.map( player =>
+                <Player 
+                name={player.name} 
+                score={player.score}
+                />
+            )};
         </div>
     )
 }
 
-const Counter = () => {
-    return (
-        <div className="counter">
-        <button className="counter-action decrement"> - </button>
-        <span className="counter-score">35</span>
-        <button className="counter-action increment"> + </button>
-    </div>
-    )
-}
-
 ReactDOM.render(
-    <Player /> ,document.getElementById('root')
+    <App initialPlayers={players}/> ,document.getElementById('root')
 );
 
