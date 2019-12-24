@@ -38,18 +38,47 @@ const Player = (props) => {
             <span className="player-name">
                 {props.name}
             </span>
-            <Counter score={props.score} />
+            {/* We don't need to pass in the state */}
+            <Counter />
         </div>
     );
 }
 
 class Counter extends React.Component {
+// initlizes what the score will start at// setting the constructor and 
+// calling the super method
+// constructor() {
+//     super()
+//     this.state = {
+//         score: 0
+//     };
+// }
+// you can set state in a shorter way but is not sipported by all web browsers
+
+state = {
+    score: 0
+};
+// state changed and render the componder, you pass it a object with
+// part of the state you want to change
+    incrementScore = () =>{
+        this.setState({
+            score: this.state.score +1
+        });
+    }
+    decrementScore = () =>{
+        this.setState({
+            score: this.state.score -1
+        });
+    }
+
     render() {
         return(
         <div className="counter">
-            <button className="counter-action decrement"> - </button>
-            <span className="counter-score">{ this.props.score }</span>
-            <button className="counter-action increment"> + </button>
+            <button className="counter-action decrement" onClick={this.decrementScore}> - </button>
+            {/* Changing props to state  */}
+            <span className="counter-score">{ this.state.score }</span>
+            {/* Arrow us binding helping with the scope */}
+            <button className="counter-action increment" onClick={this.incrementScore}> + </button>
     </div>
          )
      }
@@ -64,7 +93,6 @@ const App = (props) => {
             {props.initialPlayers.map( player =>
                 <Player 
                 name={player.name} 
-                score={player.score}
                 key={player.id.toString()}
                 />
             )}
