@@ -12,6 +12,10 @@ const Player = (props) => {
     return (
         <div className="player">
             <span className="player-name">
+            {/* button to remove player, we us a anon functin to call to props remove player
+            that we set in the App class and thanks to props we are able to get the id to 
+            delete the correct one */}
+            <button className="remove-player"  onClick={ () => props.removePlayer(props.id)}>x</button>
                 {props.name}
             </span>
             {/* We don't need to pass in the state */}
@@ -60,7 +64,7 @@ state = {
          )
      }
 }
-
+//Changed app function into a class to set a state for the players
 class App extends React.Component{
         state = {
             players: [
@@ -82,6 +86,17 @@ class App extends React.Component{
                   }
             ]
         };
+        // this is the event handler that will delete the players
+        // *setState = setState() schedules an update to a component's state object. 
+        // When state changes, the component responds by re-rendering.
+
+      handleRemovePlayer = (id) => {
+          this.setState( prevState => {
+              return {
+                  players: prevState.players.filter( p => p.id !== id )
+              }
+          })
+      }
 
     render(){
         return (
@@ -92,7 +107,9 @@ class App extends React.Component{
                 {this.state.players.map( player =>
                     <Player 
                     name={player.name} 
+                    id={player.id}
                     key={player.id.toString()}
+                    removePlayer={this.handleRemovePlayer}
                     />
                 )}
             </div>
